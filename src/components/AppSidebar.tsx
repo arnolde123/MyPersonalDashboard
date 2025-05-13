@@ -111,16 +111,14 @@ const AppSidebar = () => {
         {/** Collapsible Group */}
         <Collapsible defaultOpen className="group/collapsible">
           <SidebarGroup>
-            <SidebarGroupLabel>
+            <SidebarGroupLabel asChild>
               <CollapsibleTrigger>
-            Help
-                <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                Collapsible Group
+                <ChevronDown className="ml-auto transition-transform group-data-[state=open] collapsible:rotate-180" />
               </CollapsibleTrigger>
             </SidebarGroupLabel>
-            <SidebarGroupAction>
-              <Plus /> <span className="sr-only">Add Project</span>
-            </SidebarGroupAction>
-            <SidebarContent>
+            <CollapsibleContent>
+            <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
@@ -131,9 +129,10 @@ const AppSidebar = () => {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
-            </SidebarContent>
+            </SidebarGroupContent>
+          </CollapsibleContent>
           </SidebarGroup>
-        <Collapsible/>
+        </Collapsible>
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
