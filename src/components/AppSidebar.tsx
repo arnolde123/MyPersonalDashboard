@@ -1,4 +1,15 @@
-import { Calendar, ChevronDown, ChevronUp, Home, Inbox, Plus, Projector, Search, Settings, User2 } from "lucide-react"
+import {
+  Home,
+  Inbox,
+  Calendar,
+  Search,
+  Settings,
+  User2,
+  ChevronUp,
+  Plus,
+  Projector,
+  ChevronDown,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -9,28 +20,32 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarRail,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarSeparator,
-  SidebarTrigger,
-} from "./ui/sidebar"
+} from "./ui/sidebar";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import Link from "next/link"
-import Image from "next/image"
-
-import catImage from "./file.svg"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
-
+} from "./ui/collapsible";
 
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
@@ -53,86 +68,138 @@ const items = [
     url: "#",
     icon: Settings,
   },
-]
+];
 
 const AppSidebar = () => {
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader className="py-4 h-16 border-b border-sidebar-border">
+      <SidebarHeader className="py-4">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link href="/">
-                <Image src={catImage || "/placeholder.svg"} alt="logo" width={20} height={20}/>
+                <Image src="/pfp.svg" alt="pfp" width={20} height={20} />
                 <span>Arnold Elamthuruthil</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarSeparator/>
+      <SidebarSeparator />
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map(item=>(
+              {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <Link href={item.url}>
-                      <item.icon/>
+                      <item.icon />
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
+                  {item.title === "Inbox" && (
+                    <SidebarMenuBadge>24</SidebarMenuBadge>
+                  )}
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        {/** Projects Section */}
         <SidebarGroup>
           <SidebarGroupLabel>Projects</SidebarGroupLabel>
           <SidebarGroupAction>
             <Plus /> <span className="sr-only">Add Project</span>
           </SidebarGroupAction>
-          <SidebarContent>
+          <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <Link href="/#">
-                    <Projector/>
+                    <Projector />
                     See All Projects
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/#">
+                    <Plus />
+                    Add Project
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
-          </SidebarContent>
+          </SidebarGroupContent>
         </SidebarGroup>
-        {/** Collapsible Group */}
+        {/* COLLAPSABLE */}
         <Collapsible defaultOpen className="group/collapsible">
           <SidebarGroup>
             <SidebarGroupLabel asChild>
               <CollapsibleTrigger>
-                Collapsible Group
-                <ChevronDown className="ml-auto transition-transform group-data-[state=open] collapsible:rotate-180" />
+                Collapsable Group
+                <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
               </CollapsibleTrigger>
             </SidebarGroupLabel>
             <CollapsibleContent>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link href="/#">
-                      <Projector/>
-                      See All Projects
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </CollapsibleContent>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <Link href="/#">
+                        <Projector />
+                        See All Projects
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <Link href="/#">
+                        <Plus />
+                        Add Project
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </CollapsibleContent>
           </SidebarGroup>
         </Collapsible>
+        {/* NESTED */}
+        <SidebarGroup>
+          <SidebarGroupLabel>Nested Items</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/#">
+                    <Projector />
+                    See All Projects
+                  </Link>
+                </SidebarMenuButton>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton asChild>
+                      <Link href="/#">
+                        <Plus />
+                        Add Project
+                      </Link>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton asChild>
+                      <Link href="/#">
+                        <Plus />
+                        Add Category
+                      </Link>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
@@ -140,21 +207,20 @@ const AppSidebar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton>
-                  <User2/> Ben Franklin <ChevronUp className="ml-auto"/>
+                  <User2 /> John Doe <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuContent align="end">
                 <DropdownMenuItem>Account</DropdownMenuItem>
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Log out</DropdownMenuItem>
+                <DropdownMenuItem>Setting</DropdownMenuItem>
+                <DropdownMenuItem>Sign out</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
-      <SidebarRail/>
     </Sidebar>
   );
-}
+};
 
-export default AppSidebar
+export default AppSidebar;
